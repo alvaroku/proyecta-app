@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecta - Gestión de Proyectos y Equipos</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Proyecta es una herramienta de gestión de proyectos con tablero Kanban, gestión de equipos y seguimiento de tareas. Organiza tus proyectos de manera eficiente.">
+    <meta name="keywords" content="gestión de proyectos, kanban, tareas, equipos, productividad, organización, proyecta">
+    <meta name="author" content="Proyecta">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Proyecta - Gestión de Proyectos y Equipos">
+    <meta property="og:description" content="Organiza proyectos, gestiona equipos y realiza seguimiento de tareas con tablero Kanban interactivo.">
+    <meta property="og:image" content="https://proyecta-app-web.web.app/icon.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Proyecta - Gestión de Proyectos y Equipos">
+    <meta name="twitter:description" content="Organiza proyectos, gestiona equipos y realiza seguimiento de tareas con tablero Kanban interactivo.">
+    <meta name="twitter:image" content="https://proyecta-app-web.web.app/icon.png">
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- PWA -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Proyecta">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen">
+    
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-md">
+            <div class="text-center mb-8">
+                <img src="icon.png" alt="Proyecta" class="w-20 h-20 mx-auto mb-4 rounded-2xl shadow-lg">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">Proyecta</h1>
+                <p class="text-slate-500">Organiza proyectos y equipos</p>
+            </div>
+
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                    <input type="email" id="loginEmail" required 
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Contraseña</label>
+                    <input type="password" id="loginPassword" required 
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-slate-50">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
+                    Iniciar Sesion
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-slate-500">No tienes cuenta?</p>
+                <button id="showRegister" class="text-blue-600 hover:text-blue-700 font-medium">Crear cuenta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Screen -->
+    <div id="registerScreen" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 w-full max-w-md border border-slate-100">
+            <div class="text-center mb-8">
+                <img src="icon.png" alt="Proyecta" class="w-16 h-16 mx-auto mb-4 rounded-xl shadow-lg">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">Registro</h1>
+                <p class="text-slate-500">Crear nueva cuenta</p>
+            </div>
+
+            <form id="registerForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Nombre Completo</label>
+                    <input type="text" id="registerName" required 
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                    <input type="email" id="registerEmail" required 
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Contraseña</label>
+                    <input type="password" id="registerPassword" required minlength="6"
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-slate-50">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
+                    Registrarse
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <button id="showLogin" class="text-blue-600 hover:text-blue-700 font-medium">Volver al inicio de sesion</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="appScreen" class="hidden">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between py-3">
+                    <div class="flex items-center gap-3">
+                        <img src="icon.png" alt="Proyecta" class="w-10 h-10 rounded-xl shadow-md">
+                        <div class="hidden sm:block">
+                            <h1 class="text-xl md:text-2xl font-bold text-blue-600">Proyecta</h1>
+                            <p class="text-xs text-slate-400 -mt-1">Gestión de Proyectos</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 md:space-x-3">
+                        <button id="profileBtn" class="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 rounded-xl hover:bg-blue-100 transition border border-blue-100">
+                            <span id="userAvatarNav" class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-md"></span>
+                            <span id="userNameDisplay" class="text-sm font-medium hidden md:block"></span>
+                        </button>
+                        <button id="logoutBtn" class="px-3 md:px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition text-sm md:text-base flex items-center gap-2 shadow-md">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span class="hidden md:inline">Salir</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Projects List View -->
+        <div id="projectsView" class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Mis Proyectos</h2>
+                <button id="createProjectBtn" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition w-full md:w-auto shadow-lg shadow-blue-500/30">
+                    Nuevo Proyecto
+                </button>
+            </div>
+            
+            <div id="projectsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+
+        <!-- Project Detail View (Kanban Board) -->
+        <div id="projectDetailView" class="hidden container mx-auto px-4 py-6">
+            <div class="mb-6">
+                <button id="backToProjects" class="text-blue-600 hover:text-blue-700 font-medium mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    Volver a proyectos
+                </button>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-100">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-4">
+                        <div class="flex-1">
+                            <h2 id="projectTitle" class="text-2xl md:text-3xl font-bold text-slate-800 mb-2"></h2>
+                            <p id="projectDescription" class="text-slate-500"></p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button id="manageTeamBtn" class="bg-cyan-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-cyan-700 transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                Equipo
+                            </button>
+                            <button id="addTaskBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                Nueva Tarea
+                            </button>
+                            <button id="editProjectBtn" class="bg-slate-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-slate-700 transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm mb-4">
+                        <div class="bg-blue-50 p-3 rounded-xl">
+                            <span class="text-slate-500">Estado:</span>
+                            <span id="projectStatus" class="font-semibold ml-2 text-slate-700"></span>
+                        </div>
+                        <div class="bg-emerald-50 p-3 rounded-xl">
+                            <span class="text-slate-500">Inicio:</span>
+                            <span id="projectStartDate" class="font-semibold ml-2 text-slate-700"></span>
+                        </div>
+                        <div class="bg-amber-50 p-3 rounded-xl">
+                            <span class="text-slate-500">Est. Cierre:</span>
+                            <span id="projectEstimatedEnd" class="font-semibold ml-2 text-slate-700"></span>
+                        </div>
+                        <div id="timeStatusBadge" class="p-3 rounded-xl"></div>
+                        <div id="projectActualEndContainer" class="hidden bg-red-50 p-3 rounded-xl">
+                            <span class="text-slate-500">Cierre Real:</span>
+                            <span id="projectActualEnd" class="font-semibold ml-2 text-slate-700"></span>
+                        </div>
+                    </div>
+                    
+                    <div id="teamMembersDisplay" class="flex flex-wrap gap-2 items-center mt-3">
+                        <span class="text-sm text-slate-500">Equipo:</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kanban Board -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Pendiente -->
+                <div class="kanban-column" data-status="pendiente">
+                    <div class="kanban-header bg-slate-100">
+                        <h3 class="font-bold text-slate-700">Pendiente</h3>
+                        <span id="countPendiente" class="bg-slate-200 text-slate-600 px-2 py-1 rounded-full text-sm font-bold">0</span>
+                    </div>
+                    <div class="kanban-tasks" id="tasksPendiente"></div>
+                </div>
+
+                <!-- Por Hacer -->
+                <div class="kanban-column" data-status="por-hacer">
+                    <div class="kanban-header bg-blue-50">
+                        <h3 class="font-bold text-blue-700">Por Hacer</h3>
+                        <span id="countPorHacer" class="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm font-bold">0</span>
+                    </div>
+                    <div class="kanban-tasks" id="tasksPorHacer"></div>
+                </div>
+
+                <!-- Haciendo -->
+                <div class="kanban-column" data-status="haciendo">
+                    <div class="kanban-header bg-amber-50">
+                        <h3 class="font-bold text-amber-700">Haciendo</h3>
+                        <span id="countHaciendo" class="bg-amber-100 text-amber-600 px-2 py-1 rounded-full text-sm font-bold">0</span>
+                    </div>
+                    <div class="kanban-tasks" id="tasksHaciendo"></div>
+                </div>
+
+                <!-- Terminada -->
+                <div class="kanban-column" data-status="terminada">
+                    <div class="kanban-header bg-emerald-50">
+                        <h3 class="font-bold text-emerald-700">Terminada</h3>
+                        <span id="countTerminada" class="bg-emerald-100 text-emerald-600 px-2 py-1 rounded-full text-sm font-bold">0</span>
+                    </div>
+                    <div class="kanban-tasks" id="tasksTerminada"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Create/Edit Project -->
+    <div id="projectModal" class="modal hidden">
+        <div class="modal-content max-w-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="projectModalTitle" class="text-xl font-bold text-slate-800">Crear Proyecto</h3>
+                <button class="modal-close text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+            </div>
+            <form id="projectForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Nombre del Proyecto</label>
+                    <input type="text" id="projectName" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Descripcion</label>
+                    <textarea id="projectDescriptionInput" rows="3" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Estado</label>
+                    <select id="projectStatusInput" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                        <option value="activo">Activo</option>
+                        <option value="en-pausa">En Pausa</option>
+                        <option value="completado">Completado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Fecha de Inicio</label>
+                        <input type="date" id="projectStartDateInput" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Fecha Est. Cierre</label>
+                        <input type="date" id="projectEstimatedEndInput" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                    </div>
+                </div>
+                <div id="actualEndDateField" class="hidden">
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Fecha Real de Cierre</label>
+                    <input type="date" id="projectActualEndInput" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                </div>
+                <button type="submit" id="saveProjectBtn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30">
+                        <span>Guardar Proyecto</span>
+                    </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Manage Team -->
+    <div id="teamModal" class="modal hidden">
+        <div class="modal-content max-w-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-slate-800">Equipo del Proyecto</h3>
+                <button class="modal-close text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+            </div>
+            
+            <div id="addMemberSection" class="mb-6 hidden">
+                <h4 class="font-semibold text-slate-700 mb-3">Agregar Miembro</h4>
+                <div class="space-y-3">
+                    <input type="email" id="memberEmail" placeholder="Email del usuario" 
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                    <select id="memberRole" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                        <option value="desarrollador">Desarrollador</option>
+                        <option value="tester">Tester</option>
+                        <option value="diseñador">Diseñador</option>
+                        <option value="lider">Lider de Equipo</option>
+                    </select>
+                    <button id="addMemberBtn" class="w-full bg-blue-600 text-white px-4 py-3 rounded-xl font-medium hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                        <span>Agregar Miembro</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold text-slate-700 mb-3">Miembros del Equipo</h4>
+                <div id="teamMembersList" class="space-y-2 max-h-64 overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Add/Edit Task -->
+    <div id="taskModal" class="modal hidden">
+        <div class="modal-content max-w-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="taskModalTitle" class="text-xl font-bold text-slate-800">Nueva Tarea</h3>
+                <button class="modal-close text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+            </div>
+            <form id="taskForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Titulo de la Tarea</label>
+                    <input type="text" id="taskTitle" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Descripcion</label>
+                    <textarea id="taskDescription" rows="3" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Prioridad</label>
+                        <select id="taskPriority" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                            <option value="baja">Baja</option>
+                            <option value="media">Media</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Asignar a</label>
+                        <select id="taskAssignee" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                            <option value="">Sin asignar</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" id="saveTaskBtn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30">
+                        <span>Guardar Tarea</span>
+                    </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Profile -->
+    <div id="profileModal" class="modal hidden">
+        <div class="modal-content max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-slate-800">Mi Perfil</h3>
+                <button class="modal-close text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+            </div>
+            
+            <div class="flex flex-col items-center mb-6">
+                <div id="profileAvatar" class="w-24 h-24 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-lg"></div>
+                <p id="profileEmail" class="text-slate-500"></p>
+            </div>
+            
+            <form id="profileForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Nombre</label>
+                    <input type="text" id="profileNameInput" required 
+                        class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50">
+                </div>
+                <button type="submit" id="saveProfileBtn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Guardar Cambios
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-2xl">
+            <div class="loading-spinner"></div>
+            <p id="loadingText" class="text-slate-700 font-medium">Cargando...</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
